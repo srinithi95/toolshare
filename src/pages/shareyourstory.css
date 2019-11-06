@@ -1,4 +1,90 @@
 .wrapper{
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
+}
+
+.margin-top-2-p{
+    margin-top: 2%;
+}
+
+.margin-top-20-p{
+    margin-top: 20px;
+}
+
+.inside-wrapper{
+    
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+}
+
+.textarea-border{
+    border: 3px inset black;
+    font-size: 16px;
+}
+
+.label-font-size{
+    font-size: 20px;
+}
+
+.align-centre{
+    font-size: 48px;
+    background-color: blueviolet;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+}
+
+.plusbutton{
+    font-size: 20px;
+}
+
+#project-item-input{
+    font-size: 1.5rem;    
+}
+
+#project-step-input{
+    font-size: 1.5rem;    
+}
+
+#project-tool-input{
+    font-size: 1.5rem;    
+}
+
+#project-title-input{
+    font-size: 1.5rem;    
+}
+
+#formelements{
+    width: 25%;
+}
+
+#add-button{
+    width: 30%;
+    background-color: darkgoldenrod;
+}
+
+#submit-button{
+    margin-top: 20px ;
+}
+
+.theList li {
+    color: #333;
+    background-color: rgba(255, 255, 255, .5);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    list-style: none;
+    transition: background-color .2s ease-out;
+    font-size: 16px;
+}
+
+.theList li:hover{
+    background-color: pink;
+    cursor: pointer;
+}
+
+ul.theList{
+    padding: 0;
 }

@@ -1,14 +1,14 @@
 const mysql = require ('mysql');
 
 const con = mysql.createConnection({
-    host:"tool-sharedb.ccdqjwmvzqxn.us-west-1.rds.amazonaws.com",
+    host:"localhost",
     user:"root",
-    password:"root12345",
-    port: 3306,
-    database:"innodb"
+    password:"",
+    database:"test"
 })
 
 con.connect(function(err){
+    console.log("In connect");
     if(err) throw err;
     console.log("Connected !!")
 });
