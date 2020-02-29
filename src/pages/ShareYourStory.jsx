@@ -1,6 +1,5 @@
 import React from "react";
 import "./shareyourstory.css";
-import bench from "../images/bench.jpg";
 import axios from "axios";
 
 const ShareYourStory = () => {
