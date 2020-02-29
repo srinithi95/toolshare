@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Navbar } from "./pages/Navbar";
-import { Carousel } from "./pages/Carousel";
-import { ShareYourStory } from "./pages/ShareYourStory";
+import Carousel from "./pages/Carousel";
+import ShareYourStory from "./pages/ShareYourStory";
+import ToolPosting from "./pages/toolPosting";
 // import { RegisterUsers } from "./pages/RegisterUsers";
 //import userReducer from './redux/reducers/userReducer';
 import { connect } from "react-redux";
@@ -15,9 +16,10 @@ import {
 import RegisterUsers from "./pages/RegisterUsers";
 import Login from "./pages/Login";
 import { setIsLoggedIn } from "./redux/actions/userActions";
-import { useStore } from 'react-redux'
+import { useStore } from "react-redux";
 
 export function App({ isLoggedIn }) {
+  console.log("in app", isLoggedIn);
   return (
     <div>
       <div className="nav-bar">
@@ -36,11 +38,21 @@ export function App({ isLoggedIn }) {
             Contact
           </NavLink>
         </div>
-        <div className="nav-bar-item">
-          <NavLink to="/shareyourstory" className="nav-bar-button">
-            Share your story
-          </NavLink>
-        </div>
+        {isLoggedIn && (
+          <div className="nav-bar-item">
+            <NavLink to="/shareyourstory" className="nav-bar-button">
+              Share your story
+            </NavLink>
+          </div>
+        )}
+        {isLoggedIn && (
+          <div className="nav-bar-item">
+            <NavLink to="/posttool" className="nav-bar-button">
+              Post a Tool
+            </NavLink>
+          </div>
+        )}
+
         {/* <div className="nav-bar-item">
           <NavLink to="/registerusers" className="nav-bar-button">
             Register User
@@ -48,14 +60,15 @@ export function App({ isLoggedIn }) {
         // </div> */}
         {!isLoggedIn && (
           <div className="nav-bar-item">
-          <NavLink to="/login" className="nav-bar-button">
-            Login
-          </NavLink>
-        </div>
+            <NavLink to="/login" className="nav-bar-button">
+              Login
+            </NavLink>
+          </div>
         )}
       </div>
       <div>
         <Switch>
+          <Route path="/posttool" component={ToolPosting} />
           <Route path="/login" component={Login} />
           <Route path="/registerusers" component={RegisterUsers} />
           <Route path="/shareyourstory" component={ShareYourStory} />
@@ -67,7 +80,7 @@ export function App({ isLoggedIn }) {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.userReducer.isLoggedIn,
+  isLoggedIn: state.userReducer.isLoggedIn
 });
 
 export default connect(mapStateToProps)(App);

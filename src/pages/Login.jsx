@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import { setIsLoggedIn, setFirstName } from '../redux/actions/userActions';
+import { setIsLoggedIn, setFirstName, setAddress, setCity, setState, setZipCode, setUserEmail, setContactNumber } from '../redux/actions/userActions';
 import { connect } from 'react-redux';
 import { Redirect, NavLink} from 'react-router-dom';
 import {RegisterUsers} from "./RegisterUsers.jsx";
@@ -111,10 +111,19 @@ export const Login = ({dispatch, isLoggedIn }) => {
         else {
           let userId = res[0].users_id;
           console.log(userId);
+          console.log("before dispatch", res[0])
           dispatch(setIsLoggedIn(true));
 
+          
           let firstName = res[0].first_name;
+          let email = res[0].email;
           dispatch(setFirstName(firstName));
+          dispatch(setUserEmail(email));
+          dispatch(setAddress(res[0].address));
+          dispatch(setContactNumber(res[0].contact_number));
+          dispatch(setCity(res[0].city));
+          dispatch(setState(res[0].state));
+          dispatch(setZipCode(res[0].zipcode));
           // alert("Welcome user:", userId)
         }
       });

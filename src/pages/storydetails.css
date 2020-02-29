@@ -1,0 +1,17 @@
+.story-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.story-inside-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.margin-20px{
+    margin: 8px;
+}
+
+.width-100px{
+    width: 100px;
+}

@@ -3,8 +3,8 @@ const mysql = require ('mysql');
 const con = mysql.createConnection({
     host:"127.0.0.1",
     user:"root",
-    password:"",
-    database:"tool-share"
+    password:"qwe123",
+    database:"toolshare"
 })
 
 const Login = (req, res) => {
@@ -19,7 +19,7 @@ const Login = (req, res) => {
     let email = req.body.authData.email;
     let password = req.body.authData.password;
     
-    let query = `select users_id, first_name, last_name from users where email=? and password=?`;
+    let query = `select users_id, first_name, last_name, email, address, city, state, zipcode, contact_number from users where email=? and password=?`;
 
     con.query(query, [email, password], (error, result, field)=>{
         if(error){

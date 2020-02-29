@@ -88,6 +88,9 @@ export const RegisterUsers = () => {
   const [address, setAddress] = React.useState("");
   const [contactNumber, setContactNumber] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [state, setState] = React.useState("");
+  const [zipcode, setZipCode] = React.useState("");
   const classes = useStyles();
 
   const handleSubmit = async () => {
@@ -98,6 +101,9 @@ export const RegisterUsers = () => {
       lastName: lastName,
       email: email,
       address: address,
+      city,
+      state,
+      zipcode,
       contactNumber: contactNumber,
       password: password
     };
@@ -165,6 +171,33 @@ export const RegisterUsers = () => {
                   setAddress(e.target.value);
                 }}
                 value={address}
+              />
+              <CssTextField
+                className={classes.margin}
+                id="city-input"
+                label="City"
+                onChange={e => {
+                  setCity(e.target.value);
+                }}
+                value={city}
+              />
+              <CssTextField
+                className={classes.margin}
+                id="state-input"
+                label="State"
+                onChange={e => {
+                  setState(e.target.value);
+                }}
+                value={state}
+              />
+              <CssTextField
+                className={classes.margin}
+                id="zipcode-input"
+                label="ZipCode"
+                onChange={e => {
+                  setZipCode(e.target.value);
+                }}
+                value={zipcode}
               />
               <CssTextField
                 className={classes.margin}
