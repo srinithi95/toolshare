@@ -1,4 +1,4 @@
-export const setShowCarousel = showCarousel => ({
-    type:'SET_SHOW_CAROUSEL',
-    showCarousel
+export const setStoryId = storyId => ({
+    type:'SET_STORY_ID',
+    storyId
 })

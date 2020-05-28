@@ -37,3 +37,8 @@ export const setContactNumber = (userContactNumber) => ({
     type:'SET_CONTACT_NUMBER',
     userContactNumber,
 });
+
+export const setUserId = (userId) => ({
+    type:'SET_USER_ID',
+    userId,
+});

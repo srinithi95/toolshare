@@ -5,8 +5,30 @@ import axios from "axios";
 import { connect } from "react-redux";
 import StoryDetails from "../pages/StoryDetails";
 import ToolDetails from "./ToolDetails";
+import {
+  setUserId,
+  setIsLoggedIn,
+  setFirstName,
+  setAddress,
+  setCity,
+  setState,
+  setZipCode,
+  setUserEmail,
+  setContactNumber
+} from "../redux/actions/userActions";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from "react-router-dom";
+import image1 from "../images/holi.png";
+import SaveStory from "./SaveStory";
+import UserStory from "./UserStory";
+import LandingPage from "./LandingPage";
+import UserReservations from "./UserReservations";
 
-const Carousel = ({ isLoggedIn, firstName }) => {
+const Carousel = ({ dispatch, isLoggedIn, firstName, userId }) => {
   console.log("in carousel, logged in is", isLoggedIn);
   const [storyArray, setStoryArray] = React.useState([]);
   const [toolArray, setToolArray] = React.useState([]);
@@ -17,7 +39,6 @@ const Carousel = ({ isLoggedIn, firstName }) => {
 
   React.useEffect(() => {
     console.log("use effect 1 called");
-
     axios.get("http://localhost:3000/getStory").then(response => {
       console.log(response.data);
       setStoryArray(response.data);
@@ -32,56 +53,41 @@ const Carousel = ({ isLoggedIn, firstName }) => {
     });
   }, []);
 
-  const handleSearchStory = () => {
-    console.log("in handle search story");
+  if (!isLoggedIn) {
+    let cookieData = document.cookie.split(";");
+    let eqPos1 = cookieData[1].indexOf("=") + 1;
+    let email = cookieData[1].substr(eqPos1, cookieData[1].length);
 
-    //should be post request
-    const searchData = {
-      searchStory
+    let eqPos2 = cookieData[0].indexOf("=") + 1;
+    let password = cookieData[0].substr(eqPos2, cookieData[0].length);
+    const authData = {
+      email,
+      password
     };
+    console.log("logindata in carousel", authData);
 
-    axios
-      .post("http://localhost:3000/searchStory", { searchData })
-      .then(response => {
-        console.log(response.data);
-        setStoryArray(response.data);
-      });
-  };
-
-  const handleSearchTool = () => {
-    console.log("in handle search story");
-
-    //should be post request
-    const searchData = {
-      searchTool
-    };
-
-    axios
-      .post("http://localhost:3000/searchTool", { searchData })
-      .then(response => {
-        console.log(response.data);
-        setToolArray(response.data);
-      });
-  };
-
-  const changeToStory = () => {
-    setStoryActive(true);
-    setToolActive(false);
-  };
-
-  const changeToTool = () => {
-    setStoryActive(false);
-    setToolActive(true);
-  };
-
-  const handleStoryDetails = (s) => {
-    console.log("handle story details called",s);
-    ReactDOM.render(<StoryDetails story={s}/>, document.getElementById("xyz"));
-  }
-
-  const handleToolDetails = (t) => {
-    console.log("handle tool details called",t);
-    ReactDOM.render(<ToolDetails tool={t} />, document.getElementById("xyz"));
+    axios.post("http://localhost:3000/auth", { authData }).then(response => {
+      const res = response.data;
+      console.log("response", response);
+      if (res === "not registered user") {
+        alert("You are not logged in");
+      } else {
+        let userId = res[0].users_id;
+        console.log(userId);
+        dispatch(setUserId(userId));
+        console.log("before dispatch", res[0]);
+        dispatch(setIsLoggedIn(true));
+        let firstName = res[0].first_name;
+        let email = res[0].email;
+        dispatch(setFirstName(firstName));
+        dispatch(setUserEmail(email));
+        dispatch(setAddress(res[0].address));
+        dispatch(setContactNumber(res[0].contact_number));
+        dispatch(setCity(res[0].city));
+        dispatch(setState(res[0].state));
+        dispatch(setZipCode(res[0].zipcode));
+      }
+    });
   }
 
   return (
@@ -94,152 +100,48 @@ const Carousel = ({ isLoggedIn, firstName }) => {
       )}
 
       {isLoggedIn && (
-        <div className="inside-wrapper">You are loggedIn as: {firstName}</div>
+        <div>
+          <div className="nav-bar1">
+            <div className="nav-bar-item">
+              <NavLink to="/landingpage" className="nav-bar-button">
+                Explore
+              </NavLink>
+            </div>
+            <div className="nav-bar-item">
+              <NavLink to="/savestory" className="nav-bar-button">
+                My Saved Story
+              </NavLink>
+            </div>
+            <div className="nav-bar-item">
+              <NavLink to="/userstory" className="nav-bar-button">
+                My Stories
+              </NavLink>
+            </div>
+            <div className="nav-bar-item">
+              <NavLink to="/userreservations" className="nav-bar-button">
+                My Reservations
+              </NavLink>
+            </div>
+          </div>
+
+          <div>
+            <Switch>
+              <Route path="/savestory" component={SaveStory} />
+              <Route path="/userstory" component={UserStory} />
+              <Route path="/landingpage" component={LandingPage} />
+              <Route path="/userreservations" component={UserReservations} />
+            </Switch>
+          </div>
+        </div>
       )}
-
-      {/* tabs */}
-      <div className="align-centre1 inside-wrapper">
-        <div id="stories-tab" onClick={changeToStory} className="brown-border font-size-20 button-inside-wrapper text-align-centre cursor-pointer">
-          <b> Stories </b>
-        </div>
-        <div id="tools-tab" onClick={changeToTool} className="brown-border font-size-20 button-inside-wrapper text-align-centre cursor-pointer">
-          <b> Tools </b>
-        </div>
-      </div>
-
-      
-      {/* Tab contents */}
-      <div>
-        {storyActive && (
-          <div>
-            {/* Stories tab */}
-            <div className="align-centre1 inside-wrapper">
-              <div className="font-size-20">
-                <b> Stories </b>
-              </div>
-            </div>
-
-            {/* Search bar in stories */}
-            <div className="align-centre1 inside-wrapper">
-              <div>
-                <input
-                  type="text"
-                  onChange={e => {
-                    setSearchStory(e.target.value);
-                  }}
-                />
-              </div>
-              <div>
-                <button onClick={handleSearchStory}> Find story </button>
-              </div>
-            </div>
-
-            {/* Display all stories using array */}
-            <div>
-              <ol>
-                {storyArray.map(s => (
-                  <div>
-                    <b>{s.posting_title}</b>
-                    <div>
-                      <span>Description:</span> <span>{s.description}</span>
-                    </div>
-                    <div>
-                      <span>Tools:</span> <span>{s.tool}</span>
-                    </div>
-                    <div>
-                      <span>Materials:</span> <span>{s.material}</span>
-                    </div>
-                    <div>
-                      <span>Category:</span> <span>{s.category}</span>
-                    </div>
-                    <div className="bottom-border">
-                      <i>
-                        <span>Tag:</span> <span>{s.tag}</span>
-                      </i>
-                      <div><button onClick={() => handleStoryDetails(s)}> View more</button></div>
-                    </div>
-                  </div>
-                ))}
-              </ol>
-            </div>
-          </div>
-        )}
-
-        {toolActive && (
-          <div>
-            {/* Tools tab */}
-            <div className="align-centre1 inside-wrapper">
-              <div className="font-size-20">
-                <b> Tools </b>
-              </div>
-            </div>
-
-            {/* Search bar in tools */}
-            <div className="align-centre1 inside-wrapper">
-              <div>
-                <input
-                  type="text"
-                  onChange={e => {
-                    setSearchTool(e.target.value);
-                  }}
-                />
-              </div>
-              <div>
-                <button onClick={handleSearchTool}> Find tools </button>
-              </div>
-            </div>
-
-            {/* Display all tools using array */}
-            <div>
-              <ol>
-                {toolArray.map(t => (
-                  <div>
-                    <b>{t.tool_name}</b>
-                    <div className="flex-wrapper-row">
-                      <div className="width-500px">
-                        <span>Make:</span> <span>{t.make}</span>
-                      </div>
-                      <div className="width-500px">
-                        <span>Contact Name:</span> <span>{t.contact_name}</span>
-                      </div>
-                    </div>
-                    <div className="flex-wrapper-row">
-                      <div className="width-500px">
-                        <span>Model:</span> <span>{t.model_name}</span>
-                      </div>
-                      <div className="width-500px">
-                        <span>Email:</span> <span> {t.email} </span>
-                      </div>
-                    </div>
-                    <div className="flex-wrapper-row">
-                      <div className="width-500px">
-                        <span>Price:</span> <span>{t.price}</span>
-                      </div>
-                      <div className="width-500px">
-                        <span>Number:</span> <span>{t.contact_number}</span>
-                      </div>
-                    </div>
-                    <div className="bottom-border">
-                      <i>
-                        <span>Suggested Project: </span>
-                        <span>{t.suggested_project}</span>
-                      </i>
-                      <div><button onClick={() => handleToolDetails(t)}> View more</button></div>
-                    </div>
-                  </div>
-                ))}
-              </ol>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
 
 const mapStateToProps = state => ({
   isLoggedIn: state.userReducer.isLoggedIn,
-  firstName: state.userReducer.firstName
+  firstName: state.userReducer.firstName,
+  userId: state.userReducer.userId
 });
 
 export default connect(mapStateToProps)(Carousel);

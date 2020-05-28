@@ -17,6 +17,8 @@ import RegisterUsers from "./pages/RegisterUsers";
 import Login from "./pages/Login";
 import { setIsLoggedIn } from "./redux/actions/userActions";
 import { useStore } from "react-redux";
+import ImageUpload from "./pages/ImageUpload";
+import StepsUpload from "./pages/StepsUpload";
 
 export function App({ isLoggedIn }) {
   console.log("in app", isLoggedIn);
@@ -72,6 +74,8 @@ export function App({ isLoggedIn }) {
           <Route path="/login" component={Login} />
           <Route path="/registerusers" component={RegisterUsers} />
           <Route path="/shareyourstory" component={ShareYourStory} />
+          <Route path="/imageupload" component={ImageUpload} />
+          <Route path="/stepsupload" component={StepsUpload} />
           <Route path="/" component={Carousel} />
         </Switch>
       </div>

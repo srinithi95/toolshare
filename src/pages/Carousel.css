@@ -1,3 +1,9 @@
+.nav-bar1{
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .wrapper{
     display: flex;
     flex-direction: column;
@@ -43,6 +49,21 @@
 
 .cursor-pointer{
     cursor: pointer;
+}
+
+.imageframe{
+    height: 150px;
+    width: 200px;
+}
+
+.postingframe{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.width500px{
+    width: 800px;
 }
 
 /* active is when clicked */

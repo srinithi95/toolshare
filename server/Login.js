@@ -1,10 +1,10 @@
 const mysql = require ('mysql');
 
-const con = mysql.createConnection({
+const con = mysql.createPool({
     host:"127.0.0.1",
     user:"root",
-    password:"qwe123",
-    database:"toolshare"
+    password:"",
+    database:"tool-share"
 })
 
 const Login = (req, res) => {

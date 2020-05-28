@@ -1,13 +1,13 @@
 const INITIAL_STATE = {
-    showCarousel: false
+    storyId: ''
 }
 
 const shareYourStoryReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case 'SET_SHOW_CAROUSEL':
+        case 'SET_STORY_ID':
             return{
                 ...state,
-                showCarousel: action.showCarousel
+                storyId: action.storyId
             };
         default:
             return state;

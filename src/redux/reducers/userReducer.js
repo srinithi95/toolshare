@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   userCity: "",
   userState: "",
   userZipCode: "",
-  userContactNumber: ""
+  userContactNumber: "",
+  userId: ""
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -59,6 +60,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userZipCode: action.userZipCode
       };
+
+    case "SET_USER_ID":
+      return {
+        ...state,
+        userId: action.userId
+      }
     default:
       return state;
   }

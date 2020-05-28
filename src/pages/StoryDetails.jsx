@@ -1,8 +1,22 @@
 import React from "react";
+import axios from "axios";
 import "./storydetails.css";
 
 const StoryDetails = propStory => {
   console.log("in story details component", propStory);
+  const [stepArray, setStepArray] = React.useState([]);
+
+  React.useEffect(() => {
+    const storyId = {
+      story_id: propStory.story.story_id
+    };
+
+    axios.post("http://localhost:3000/getsteps", { storyId }).then(response => {
+      console.log(response.data);
+      setStepArray(response.data);
+    });
+  }, []);
+
   return (
     <div className="story-wrapper">
       <div>
@@ -17,7 +31,26 @@ const StoryDetails = propStory => {
       </div>
       <div>
         <span className="margin-20px width-100px">Materials:</span>
-        <span className="margin-20px width-100px">{propStory.story.material}</span>
+        <span className="margin-20px width-100px">
+          {propStory.story.material}
+        </span>
+      </div>
+      <div>
+        <strong>The steps of the story are:</strong>
+      </div>
+      <div>
+        <ol>
+          {stepArray.map(s => (
+            <div className="">
+              <div className="">
+                <li>{s.text}</li>
+              </div>
+            </div>
+          ))}
+        </ol>
+      </div>
+      <div>
+        <img src={propStory.story.image_url} className="imageframe" />
       </div>
     </div>
   );

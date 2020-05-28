@@ -1,17 +1,17 @@
 const mysql = require ('mysql');
 
-const con = mysql.createConnection({
+const con = mysql.createPool({
     host:"127.0.0.1",
     user:"root",
-    password:"qwe123",
-    database:"toolshare"
+    password:"",
+    database:"tool-share"
 })
 
 const postTool = (req, res) => {
-    con.connect(function(err){
-        if(err) throw err;
-        console.log("Connected !!")
-    });
+    // con.connect(function(err){
+    //     if(err) throw err;
+    //     console.log("Connected !!")
+    // });
 
     let toolName = req.body.toolData.toolName;
     let price = req.body.toolData.price;
@@ -30,12 +30,19 @@ const postTool = (req, res) => {
     let city = req.body.toolData.city;
     let state = req.body.toolData.state;
     let zipcode = req.body.toolData.zipcode;
+    let userId = req.body.toolData.userId;
 
-    let query = `insert into tool (tool_name, price, availability, description, make, model_name, suggested_project, email, contact_number, contact_name, address, city, state, zipcode, tool_condition) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`
+    let id = Date.now();
 
-    con.query(query, [toolName, price, availability, description, make, modelName, suggestedProject, email, contactNumber, contactName, address, city, state, zipcode, condition])
+    let query = `insert into tool (tool_id, user_id, tool_name, price, description, make, model_name, suggested_project, tool_condition) values (?, ?, ?, ?, ?, ?, ?, ?, ?);`
+    con.query(query, [id, userId, toolName, price, description, make, modelName, suggestedProject, condition])
     console.log("in post tool", req.body.toolData);
-    res.send("Data received");
+
+    let query1 = `insert into tool_contact_details (tool_id, contact_name, email, address, city, state, zipcode, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?);`
+    con.query(query1, [id,contactName, email, address, city, state, zipcode, contactNumber]);
+    // , email, contact_number, contact_name, address, city, state, zipcode,
+    // email, contactNumber, contactName, address, city, state, zipcode, 
+    res.send({successful:true, tool_id: id});
 }
 
 module.exports = postTool;
