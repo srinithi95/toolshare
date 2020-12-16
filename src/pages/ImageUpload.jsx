@@ -31,9 +31,9 @@ const ImageUpload = ({storyId}) => {
           <input type="submit" value="Submit image" />
         </form>
       </div>
-      <NavLink id="nextdiv" to="/stepsupload" className="nav-bar-button">
+      {/* <NavLink id="nextdiv" to="/stepsupload" className="nav-bar-button">
         Go to steps
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 };

@@ -1,20 +1,23 @@
 import React from "react";
 import axios from "axios";
 import "./storydetails.css";
+import ReactImageMagnify from "react-image-magnify";
 
-const StoryDetails = propStory => {
+const StoryDetails = (propStory) => {
   console.log("in story details component", propStory);
   const [stepArray, setStepArray] = React.useState([]);
 
   React.useEffect(() => {
     const storyId = {
-      story_id: propStory.story.story_id
+      story_id: propStory.story.story_id,
     };
 
-    axios.post("http://localhost:3000/getsteps", { storyId }).then(response => {
-      console.log(response.data);
-      setStepArray(response.data);
-    });
+    axios
+      .post("http://localhost:3000/getsteps", { storyId })
+      .then((response) => {
+        console.log(response.data);
+        setStepArray(response.data);
+      });
   }, []);
 
   return (
@@ -26,21 +29,21 @@ const StoryDetails = propStory => {
         <i>{propStory.story.description}</i>
       </div>
       <div className="story-inside-wrapper">
-        <span className="margin-20px width-100px">Tools required:</span>
-        <span className="margin-20px width-100px">{propStory.story.tool}</span>
+        {/* <span className="margin-20px width-100px">Tools required:</span>
+        <span className="margin-20px width-100px">{propStory.story.tool}</span> */}
       </div>
       <div>
-        <span className="margin-20px width-100px">Materials:</span>
+        {/* <span className="margin-20px width-100px">Materials:</span>
         <span className="margin-20px width-100px">
           {propStory.story.material}
-        </span>
+        </span> */}
       </div>
       <div>
-        <strong>The steps of the story are:</strong>
+        {/* <strong>The steps of the story are:</strong> */}
       </div>
       <div>
         <ol>
-          {stepArray.map(s => (
+          {stepArray.map((s) => (
             <div className="">
               <div className="">
                 <li>{s.text}</li>
@@ -49,8 +52,30 @@ const StoryDetails = propStory => {
           ))}
         </ol>
       </div>
-      <div>
+      {/* <div>
         <img src={propStory.story.image_url} className="imageframe" />
+      </div> */}
+      <div className="fluid">
+        <div className="fluid__image-container">
+          <ReactImageMagnify
+            {...{
+              smallImage: {
+                alt: "Wristwatch by Ted Baker London",
+                isFluidWidth: true,
+                src: propStory.story.image_url,
+                width: 300,
+                height: 300
+              },
+              largeImage: {
+                src: propStory.story.image_url,
+                width: 600,
+                height: 800,
+              },
+              isHintEnabled: true,
+              shouldHideHintAfterFirstActivation: false,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

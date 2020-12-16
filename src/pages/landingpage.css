@@ -1,5 +1,5 @@
 #toolspan:hover{
-    background-color: blue;
+    background-color: rgb(199, 235, 198);
     cursor: pointer;
 }
 
@@ -40,4 +40,38 @@
     border-radius: 14px;
     padding: 15px;
     margin-bottom: 10px;
+}
+
+.map-container{
+    height: 420px;
+    width: 200px;
+}
+
+.margin-left-10px{
+    margin-left: 10px;
+}
+
+.margin-left-40px{
+    margin-left: 40px;
+}
+
+.margin-left-top-30px{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+*{box-sizing: border-box;}
+
+.img-magnifier-container {
+  position:relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 100px;
+  height: 100px;
 }

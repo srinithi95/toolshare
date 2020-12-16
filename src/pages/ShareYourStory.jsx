@@ -83,7 +83,7 @@ const ShareYourStory = ({ dispatch, userId }) => {
       alert("You have already added 5 tools")
     }
     else{
-      console.log("add tool called");
+    console.log("add tool called");
     const maindiv = document.getElementById("Tool-div");
     const tempdiv = document.createElement("div");
     tempdiv.className = "width-200px";
@@ -162,7 +162,7 @@ const ShareYourStory = ({ dispatch, userId }) => {
         </div>
       </div>
       <div className="inside-wrapper">
-        <div className="width-200px"> <strong>Posting title </strong></div>
+        <div className="width-200px"> <strong>Posting title </strong> <span className="red-text">*</span></div>
         <div>
           <input
             type="text"
@@ -174,7 +174,7 @@ const ShareYourStory = ({ dispatch, userId }) => {
         </div>
       </div>
       <div className="inside-wrapper">
-        <div className="width-200px"> <strong>Description </strong></div>
+        <div className="width-200px"> <strong>Description </strong> <span className="red-text">*</span></div>
         <div>
           <textarea
             type="text"

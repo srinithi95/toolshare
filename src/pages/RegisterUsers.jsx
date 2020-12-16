@@ -14,71 +14,76 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"; // THIS IS NEW!!
 import rootReducer from "../redux/reducers/rootReducer";
 import { Provider } from "react-redux";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   card: {
     minWidth: 275,
     backgroundColor: "khaki",
     font: "Roboto",
-    fontSize: "4rem"
+    fontSize: "4rem",
   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
-    transform: "scale(0.8)"
+    transform: "scale(0.8)",
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   pos: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   margin: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+  },
+  margin1:{
+    marginLeft: 20,
   }
 }));
 
 const CssTextField = withStyles({
   root: {
     "& .MuiFormLabel-root": {
-      fontSize: "1.5rem"
+      fontSize: "1.5rem",
     },
     "& label.Mui-focused": {
       color: "blue",
       fontSize: "1.5rem",
-      maxWidth: "50%"
+      maxWidth: "50%",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "green"
+      borderBottomColor: "green",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "red"
+        borderColor: "red",
       },
       "&:hover fieldset": {
-        borderColor: "crimson"
+        borderColor: "crimson",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "green"
+        borderColor: "green",
       },
       "& .MuiInputBase-input": {
         fontSize: "5rem",
-        width: "50%"
+        width: "50%",
       },
       "& .MuiInputBase-root": {
-        width: "50%"
+        width: "50%",
       },
       "& .MuiInput-root": {
-        width: "50%"
-      }
-    }
-  }
+        width: "50%",
+      },
+    },
+  },
 })(TextField);
 
 export const RegisterUsers = () => {
@@ -91,6 +96,7 @@ export const RegisterUsers = () => {
   const [city, setCity] = React.useState("");
   const [state, setState] = React.useState("");
   const [zipcode, setZipCode] = React.useState("");
+  const [checked, setChecked] = React.useState(true);
   const classes = useStyles();
 
   const handleSubmit = async () => {
@@ -105,13 +111,13 @@ export const RegisterUsers = () => {
       state,
       zipcode,
       contactNumber: contactNumber,
-      password: password
+      password: password,
     };
     console.log("Berry good", userData);
 
     await axios
       .post("http://localhost:3000/registerUser", { userData })
-      .then(response => {
+      .then((response) => {
         console.log(response);
         const res = response.data;
       });
@@ -140,7 +146,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="first-name-input"
                 label="First Name"
-                onChange={e => {
+                onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
                 value={firstName}
@@ -149,7 +155,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="last-name-input"
                 label="Last Name"
-                onChange={e => {
+                onChange={(e) => {
                   setLastName(e.target.value);
                 }}
                 value={lastName}
@@ -158,7 +164,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="email-input"
                 label="Email"
-                onChange={e => {
+                onChange={(e) => {
                   setEmail(e.target.value);
                 }}
                 value={email}
@@ -167,7 +173,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="address-input"
                 label="Address"
-                onChange={e => {
+                onChange={(e) => {
                   setAddress(e.target.value);
                 }}
                 value={address}
@@ -176,7 +182,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="city-input"
                 label="City"
-                onChange={e => {
+                onChange={(e) => {
                   setCity(e.target.value);
                 }}
                 value={city}
@@ -185,7 +191,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="state-input"
                 label="State"
-                onChange={e => {
+                onChange={(e) => {
                   setState(e.target.value);
                 }}
                 value={state}
@@ -194,7 +200,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="zipcode-input"
                 label="ZipCode"
-                onChange={e => {
+                onChange={(e) => {
                   setZipCode(e.target.value);
                 }}
                 value={zipcode}
@@ -203,7 +209,7 @@ export const RegisterUsers = () => {
                 className={classes.margin}
                 id="contact-number-input"
                 label="Contact number"
-                onChange={e => {
+                onChange={(e) => {
                   setContactNumber(e.target.value);
                 }}
                 value={contactNumber}
@@ -213,17 +219,26 @@ export const RegisterUsers = () => {
                 id="password-input"
                 label="Password"
                 type="password"
-                onChange={e => {
+                onChange={(e) => {
                   setPassword(e.target.value);
                 }}
                 value={password}
               />
             </CardContent>
+            <FormControlLabel className={classes.margin1} control={<Checkbox name="checkedC" />} label="I agree to the terms and conditions." />
             <CardActions>
               <Button size="large" onClick={handleSubmit}>
                 Submit
               </Button>
             </CardActions>
+            {/* <CardActions>
+              <Checkbox
+                checked={checked}
+                // onChange={handleChange}
+                inputProps={{ "aria-label": "primary checkbox" }}
+                label="I agree to the terms and conditions."
+              />
+            </CardActions> */}
           </Card>
         </div>
         <div class="col"></div>

@@ -55,11 +55,11 @@ const Carousel = ({ dispatch, isLoggedIn, firstName, userId }) => {
 
   if (!isLoggedIn) {
     let cookieData = document.cookie.split(";");
-    let eqPos1 = cookieData[1].indexOf("=") + 1;
-    let email = cookieData[1].substr(eqPos1, cookieData[1].length);
+    let eqPos1 = cookieData[0].indexOf("=") + 1;
+    let email = cookieData[0].substr(eqPos1, cookieData[0].length);
 
-    let eqPos2 = cookieData[0].indexOf("=") + 1;
-    let password = cookieData[0].substr(eqPos2, cookieData[0].length);
+    let eqPos2 = cookieData[1].indexOf("=") + 1;
+    let password = cookieData[1].substr(eqPos2, cookieData[1].length);
     const authData = {
       email,
       password

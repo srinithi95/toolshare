@@ -171,6 +171,11 @@ export const Login = ({dispatch, isLoggedIn }) => {
                 Register a new Account
               </Button>
             </CardActions>
+            <CardActions>
+              <Button size="large">
+                Forgot Password
+              </Button>
+            </CardActions>
           </Card>
         </div>
         <div class="col"></div>

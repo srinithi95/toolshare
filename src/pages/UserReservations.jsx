@@ -1,9 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import Moment from "react-moment";
+import "./userreservation.css";
 
 const UserReservations = (userId) => {
-    const [toolArray, setToolArray] = React.useState([]);
+  const [toolArray, setToolArray] = React.useState([]);
+  const [review, setReview] = React.useState();
+  const [ownerId, setOwnerId] = React.useState();
 
   React.useEffect(() => {
     const userdata = {
@@ -17,6 +21,37 @@ const UserReservations = (userId) => {
         setToolArray(response.data);
       });
   }, []);
+
+  const handleReviewSubmit = (tool_id) => {
+    let owner_id = "";
+    console.log("tool_id passed is", tool_id);
+    axios
+      .post("http://localhost:3000/gettoolowner", { tool_id })
+      .then((response) => {
+        console.log(response);
+        owner_id = response.data[0].user_id;
+        console.log("owner id is", owner_id);
+        setOwnerId(response.data[0].user_id);
+      });
+
+    setTimeout(() => {
+      console.log("ownerId is", ownerId);
+      let reviewData = {
+        userId: userId.userId,
+        ownerId: "2",
+        review_text: review,
+        review_point: "4",
+      };
+      axios
+        .post("http://localhost:3000/postreview", { reviewData })
+        .then((response) => {
+          console.log(response);
+        });
+    }, 5000);
+
+    alert("Review submitted")
+    document.getElementById("reviewtextarea1").value ="";
+  };
 
   return (
     <div>
@@ -58,10 +93,52 @@ const UserReservations = (userId) => {
               </div>
               <div className="flex-wrapper-row">
                 <div className="width-350px">
-                  <span>Reserved from</span> <span>{t.start_date}</span>
+                  <span>Reserved from</span>{" "}
+                  <Moment format="YYYY/MM/DD HH:mm">{t.start_date}</Moment>
                 </div>
                 <div className="width-350px">
-                  <span>Until</span> <span>{t.end_date}</span>
+                  <span>Until</span>{" "}
+                  <Moment format="YYYY/MM/DD HH:mm">{t.end_date}</Moment>
+                </div>
+                <div>
+                  {t.complete && (
+                    <div>
+                      <span className="complete-button"> Complete! </span>
+                      <div className="top-margin-20px">
+                        <textarea 
+                          id="reviewtextarea1"
+                          cols="50"
+                          rows="6"
+                          placeholder="Please review your experience with other community person."
+                          onChange={(e) => {
+                            setReview(e.target.value);
+                          }}
+                        />
+                      </div>
+                      <div>
+                        {" "}
+                        <button onClick={() => handleReviewSubmit(t.tool_id)}>
+                          {" "}
+                          Submit{" "}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {!t.complete && (
+                    <div>
+                      {" "}
+                      <span className="incomplete-button">
+                        {" "}
+                        Upcoming transaction !!{" "}
+                      </span>
+                      <div className="top-margin-20px">
+                        {" "}
+                        <i>
+                          You will be able to review after transaction is done.{" "}
+                        </i>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

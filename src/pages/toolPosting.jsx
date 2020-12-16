@@ -3,13 +3,13 @@ import "./toolposting.css";
 import axios from "axios";
 import { connect } from "react-redux";
 import { setToolId } from "../redux/actions/shareYourToolAction";
-// import ToolImageUpload from "./ToolImageUpload";
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   NavLink
-// } from "react-router-dom";
+import ToolImageUpload from "./ToolImageUpload";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink
+} from "react-router-dom";
 
 const ToolPosting = ({
   firstName,
@@ -20,7 +20,7 @@ const ToolPosting = ({
   userState,
   userZipCode,
   userContactNumber,
-  dispatch
+  dispatch,
 }) => {
   const [toolName, setToolName] = React.useState("");
   const [price, setPrice] = React.useState("");
@@ -55,8 +55,7 @@ const ToolPosting = ({
       document.getElementById("zipcode-input1").value = userZipCode;
       document.getElementById("contactnumber-input1").value = userContactNumber;
       document.getElementById("contactname-input1").value = firstName;
-    }
-    else{
+    } else {
       document.getElementById("email-input1").value = "";
       document.getElementById("address-input1").value = "";
       document.getElementById("city-input1").value = "";
@@ -112,11 +111,11 @@ const ToolPosting = ({
       </div>
 
       {/* Form starts here */}
-      
+
       {/* Basic details */}
       <div className="inside-wrapper">
         <div className="width-200px">
-          <strong> Tool name </strong>
+          <strong> Tool name </strong> <span className="red-text">*</span>
         </div>
         <div>
           <input
@@ -129,7 +128,7 @@ const ToolPosting = ({
       </div>
       <div className="inside-wrapper">
         <div className="width-200px">
-          <strong> Price </strong>
+          <strong> Price </strong> <span className="red-text">*</span>
         </div>
         <div>
           {" "}
@@ -138,7 +137,8 @@ const ToolPosting = ({
             onChange={(e) => {
               setPrice(e.target.value);
             }}
-          /> <i>$/hour</i>
+          />{" "}
+          <i>$/hour</i>
         </div>
       </div>
       {/* <div className="inside-wrapper">
@@ -157,7 +157,7 @@ const ToolPosting = ({
       </div> */}
       <div className="inside-wrapper">
         <div className="width-200px">
-          <strong> Description </strong>
+          <strong> Description </strong> <span className="red-text">*</span>
         </div>
         <div>
           {" "}
@@ -181,7 +181,8 @@ const ToolPosting = ({
 
       <div className="inside-wrapper">
         <div className="width-200px">
-          <strong> Make/Manufacturer </strong>
+          <strong> Make/Manufacturer </strong>{" "}
+          <span className="red-text">*</span>
         </div>
         <div>
           {" "}
@@ -195,7 +196,8 @@ const ToolPosting = ({
       </div>
       <div className="inside-wrapper">
         <div className="width-200px">
-          <strong> Condition </strong>{" "}
+          <strong> Condition </strong>
+          <span className="red-text">*</span>
         </div>
         <div>
           {" "}
@@ -250,14 +252,18 @@ const ToolPosting = ({
         <div
           id="stories-tab"
           className="green-border button-inside-wrapper text-align-centre cursor-pointer"
-          onClick={() => {handleChangeLocation(true)}}
+          onClick={() => {
+            handleChangeLocation(true);
+          }}
         >
           Post to your current location
         </div>
         <div
           id="stories-tab"
           className="green-border font-size-16 button-inside-wrapper text-align-centre cursor-pointer"
-          onClick={() => {handleChangeLocation(false)}}
+          onClick={() => {
+            handleChangeLocation(false);
+          }}
         >
           Post to a different location
         </div>
@@ -393,25 +399,23 @@ const ToolPosting = ({
         </div>
       </div>
 
-      {/* <div>
       <div>
-          {step1 && (
-            <div>
-              <div>Click on next to upload images for the tool</div>
-              <div id="nextdiv">
-                <NavLink to="/toolimageupload" className="">
-                  Next
-                </NavLink>
-              </div>
+        <div>
+          <div>
+            <div>Click on next to upload image for the tool</div>
+            <div id="nextdiv">
+              <NavLink to="/toolimageupload" className="">
+                Next
+              </NavLink>
             </div>
-          )}
+          </div>
         </div>
         <div>
           <Switch>
             <Route path="/toolimageupload" component={ToolImageUpload} />
           </Switch>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

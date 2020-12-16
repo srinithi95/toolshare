@@ -35,9 +35,13 @@ const postStory = (req, res) => {
     //     console.log(error);
     //     res.send({successful:true, story_id: id});
     // });
+    let tool23="";
+    let material23="";
+    let category23="";
+    let tag23="";
 
-    let query = `insert into story (story_id, user_id, description, tag, posting_title) values (?, ?, ?, ?, ?);`
-    con.query(query,[id, userId, description, tag, postingTitle], (error, result) => {
+    let query = `insert into story (story_id, user_id, description, posting_title) values (?, ?, ?, ?);`
+    con.query(query,[id, userId, description, postingTitle], (error, result) => {
         console.log(error);
     });
 
