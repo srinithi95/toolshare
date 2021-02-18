@@ -61,7 +61,7 @@ const LandingPage = ({ dispatch, isLoggedIn, firstName, userId }) => {
         t.city +
         t.state +
         t.zipcode +
-        "&key=AIzaSyAFVTCj_XzqwG3Le6k8BP5EyyPKznz1AhA";
+        "&key=AIzaSyALPCrM1o0G3wqbTLToT2KWvsExLao5vhE";
       console.log("url is", url);
       axios.get(url).then((response) => {
         console.log(

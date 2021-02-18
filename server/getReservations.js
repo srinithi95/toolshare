@@ -12,13 +12,15 @@ const getReservations = (req, res) => {
 
   let user_id = req.body.userdata.userId.userId;
 
-  let query = `select t.*,tr.start_date, tr.end_date,ti.image_url from tool t, tool_reservation tr, users u, tool_images ti where t.tool_id=tr.tool_id && tr.tool_id=ti.tool_id && u.users_id=tr.user_id && tr.user_id=?;`;
+  let query = `select t.*,tr.start_date, tr.end_date,ti.image_url from tool t,
+   tool_reservation tr, users u, tool_images ti where t.tool_id=tr.tool_id && tr.tool_id=ti.tool_id 
+   && u.users_id=tr.user_id ;`; //  
   con.query(query, [user_id], (error, result, field) => {
     if (error) console.log(error);
     else {
       //   console.log("result is", result);
 
-      console.log("type is ", result[2].tool_name);
+   //   console.log("type is ", result[2].tool_name);
 
       // result.map((r) => {
       //     let endMonth = new Date(r.end_date).getMonth();

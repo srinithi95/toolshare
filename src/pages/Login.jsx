@@ -116,6 +116,7 @@ export const Login = ({dispatch, isLoggedIn }) => {
           dispatch(setIsLoggedIn(true));
           let firstName = res[0].first_name;
           let email = res[0].email;
+          let password=res[0].password;
           dispatch(setFirstName(firstName));
           dispatch(setUserEmail(email));
           dispatch(setAddress(res[0].address));

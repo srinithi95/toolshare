@@ -22,7 +22,7 @@ import {
   Route,
   NavLink
 } from "react-router-dom";
-import image1 from "../images/holi.png";
+
 import SaveStory from "./SaveStory";
 import UserStory from "./UserStory";
 import LandingPage from "./LandingPage";
@@ -58,8 +58,8 @@ const Carousel = ({ dispatch, isLoggedIn, firstName, userId }) => {
     let eqPos1 = cookieData[0].indexOf("=") + 1;
     let email = cookieData[0].substr(eqPos1, cookieData[0].length);
 
-    let eqPos2 = cookieData[1].indexOf("=") + 1;
-    let password = cookieData[1].substr(eqPos2, cookieData[1].length);
+    let eqPos2 = cookieData[0].indexOf("=") + 1;
+    let password = cookieData[0].substr(eqPos2, cookieData[0].length);
     const authData = {
       email,
       password

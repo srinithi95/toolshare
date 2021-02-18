@@ -50,7 +50,7 @@ export class ToolMap extends Component {
           onClick={this.onMarkerClick}
           name={"Carpet Vaccum Cleaner"}
         /> */}
-        <InfoWindow
+        <InfoWindow 
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
           onClose={this.onClose}
@@ -66,5 +66,5 @@ export class ToolMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyAFVTCj_XzqwG3Le6k8BP5EyyPKznz1AhA",
+  apiKey: "AIzaSyALPCrM1o0G3wqbTLToT2KWvsExLao5vhE",
 })(ToolMap);
