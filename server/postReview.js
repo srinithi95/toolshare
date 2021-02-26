@@ -1,6 +1,6 @@
 const mysql = require ('mysql');
 const multer = require('multer');
-const upload = multer({dest: '/server/uploads'});
+//const upload = multer({dest: '/server/uploads'});
 
 const con = mysql.createPool({
     host:"127.0.0.1",
