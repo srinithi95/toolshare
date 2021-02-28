@@ -5,7 +5,7 @@ const multer = require('multer');
 const con = mysql.createPool({
     host:"127.0.0.1",
     user:"root",
-    password:"",
+    password:"Password123#@",
     database:"tool-share"
 })
 
